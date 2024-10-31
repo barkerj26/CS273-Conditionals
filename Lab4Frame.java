@@ -26,6 +26,7 @@ public class Lab4Frame extends JFrame implements ItemListener {
         Arrays.asList("Sky Blue Body", "Frown", "Whistle", "Big Feet", "Green Eyes")
     );
 
+    // 2d list of JCheckBoxes in the same orientation as the labels defined above
     private List<List<JCheckBox>> checkBoxes;
 
     /** 
@@ -93,6 +94,12 @@ public class Lab4Frame extends JFrame implements ItemListener {
         this.getContentPane().add(Box.createVerticalGlue());
     }
 
+    /**
+     * createJCheckBox - make a new JCheckbox with this class as listener
+     * 
+     * @param label the text the checkbox will display
+     * @return the new checkbox instance
+     */
     private JCheckBox createJCheckBox(String label) {
         JCheckBox checkBox = new JCheckBox(label);
         checkBox.addItemListener(this);
