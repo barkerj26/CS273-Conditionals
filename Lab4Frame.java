@@ -13,7 +13,7 @@ public class Lab4Frame extends JFrame implements ItemListener {
 
     // background color
     private static final Color ANTIQUE_WHITE = new Color(250,235,215);
-   
+
     // instance variables
     private Lab4BaseArea drawPanel; // robot-drawing panel
     private boolean whistleMoreRecentThanFrown; // whether whistle or frown more recently checked
@@ -26,6 +26,7 @@ public class Lab4Frame extends JFrame implements ItemListener {
         Arrays.asList("Sky Blue Body", "Frown", "Whistle", "Big Feet", "Green Eyes")
     );
 
+    // 2d list of JCheckBoxes in the same orientation as the labels defined above
     private List<List<JCheckBox>> checkBoxes;
 
     /** 
@@ -37,17 +38,17 @@ public class Lab4Frame extends JFrame implements ItemListener {
         // initialize our drawing panel; notify the panel that I am its frame
         drawPanel = a;
         drawPanel.setFrame(this);
-        
+
         // initialize the GUI
         init();
-        
+
         setSize(600,750);
         setBackground(ANTIQUE_WHITE);
-        
+
         // set to exit on window-close
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
-    
+
     /**
      * init - initializes our frame
      */
@@ -55,7 +56,7 @@ public class Lab4Frame extends JFrame implements ItemListener {
         // create a vertical box as our top element. It will contain two subparts:
         // one for the check-boxes, and one for the drawing
         this.setContentPane(Box.createVerticalBox());
-        
+
         // create the container (box) for the check-boxes; add it to our top element
         Box top = Box.createHorizontalBox();
         this.getContentPane().add(top);
@@ -63,7 +64,7 @@ public class Lab4Frame extends JFrame implements ItemListener {
         // create vertical boxes within our horizontal container, which contains all the
         // check-boxes. Have our object listen to each one.
         checkBoxes = new ArrayList<>();
-        
+
         // loop though each top-level element of our check-box strings
         for (List<String> checkboxLabelColumn : checkBoxLabels) {
             // create next vertical box and add it
@@ -84,15 +85,49 @@ public class Lab4Frame extends JFrame implements ItemListener {
             // create new check-box array
             checkBoxes.add(checkBoxColumn);
         }
-              
+
         whistleMoreRecentThanFrown = false;
-        
+
         this.getContentPane().add(drawPanel);
-        
+
         // add some glue to the GUI in case the window is resized
         this.getContentPane().add(Box.createVerticalGlue());
     }
 
+    /**
+     * itemStateChanged -- callback-method, called whenever a checkbox is checked or unchecked
+     * 
+     * This method calls the repaint method in Lab4BaseArea, which then calls the paint method overridden by Lab4Area
+     * 
+     * @param ie the item-event
+     */
+    public void itemStateChanged(ItemEvent ie) {
+        // get the source of the object
+        JCheckBox src = (JCheckBox)ie.getSource();
+
+        // set the whistle/frown instance variable if appropriate
+        if (src.isSelected()) {
+            String checkText = src.getText();
+            if (checkText.equals("Whistle")) {
+                // "whistle" just checked
+                whistleMoreRecentThanFrown = true;
+            }
+            else if (checkText.equals("Frown")) {
+                // "frown" just checked
+                whistleMoreRecentThanFrown = false;
+            }
+        }
+
+        // have our draw-panel repaint itself
+        drawPanel.repaint();
+    }
+
+    /**
+     * createJCheckBox - make a new JCheckbox with this class as listener
+     * 
+     * @param label the text the checkbox will display
+     * @return the new checkbox instance
+     */
     private JCheckBox createJCheckBox(String label) {
         JCheckBox checkBox = new JCheckBox(label);
         checkBox.addItemListener(this);
@@ -126,32 +161,6 @@ public class Lab4Frame extends JFrame implements ItemListener {
                 .count());
     }
 
-    /**
-     * itemStateChanged -- callback-method, called whenever a checkbox is checked or unchecked
-     * 
-     * @param ie the item-event
-     */
-    public void itemStateChanged(ItemEvent ie) {
-        // get the source of the object
-        JCheckBox src = (JCheckBox)ie.getSource();
-        
-        // set the whistle/frown instance variable if appropriate
-        if (src.isSelected()) {
-            String checkText = src.getText();
-            if (checkText.equals("Whistle")) {
-                // "whistle" just checked
-                whistleMoreRecentThanFrown = true;
-            }
-            else if (checkText.equals("Frown")) {
-                // "frown" just checked
-                whistleMoreRecentThanFrown = false;
-            }
-        }
-        
-        // have our draw-panel repaint itself
-        drawPanel.repaint();
-    }
-    
     /**
      * whistleMoreRecent -- tells whether a the 'whistle' check-box was checked more recently
      * than the 'frown' one

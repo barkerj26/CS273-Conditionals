@@ -14,21 +14,44 @@ public class Lab4BaseArea extends Canvas {
 
     // tells whether we've already translated our polygons
     private boolean alreadyTranslated = false;
-    
+
     /**
      * constructor
      */
     public Lab4BaseArea() {
         // create all our polygons
         init();
-        
+
         // set our size
         setSize(500,800);
         setPreferredSize(getSize());
         setMinimumSize(getSize());
         setMaximumSize(getSize());
     }
-    
+
+    /**
+     * repaint -- repaints the visible area
+     * 
+     * This method calls the paint method overridden by Lab4Area
+     */
+    public final void repaint() {
+        // get our graphics object
+        Graphics g = this.getGraphics();
+
+        // return if graphics object does not exist
+        if (g == null) {
+            return;
+        }
+
+        // paint our background by drawing a large rectangle that is the same color as
+        // as our frame's
+        g.setColor(frame.getBackground());
+        g.fillRect(0,0,3000,3000);
+
+        // invoke our 'paint' method to draw the robot
+        this.paint(g);
+    }
+
     /**
      * setFrame -- lets us know who our frame is
      */
@@ -38,7 +61,7 @@ public class Lab4BaseArea extends Canvas {
             frame = f;
         }
     }
-    
+
     /**
      * isChecked -- tells whether a checkbox is checked
      * 
@@ -49,7 +72,7 @@ public class Lab4BaseArea extends Canvas {
         // ask our frame
         return frame.isChecked(s);
     }
-    
+
     /**
      * whistleMoreRecent -- tells whether 'whistle' was checked more recently than
      * 'frown'
@@ -60,7 +83,7 @@ public class Lab4BaseArea extends Canvas {
         // ask our frame
         return frame.whistleMoreRecent();
     }
-    
+
     /**
      * totalNumChecked -- the total number of check-boxes that are checked
      * 
@@ -69,26 +92,6 @@ public class Lab4BaseArea extends Canvas {
     public int totalNumChecked() {
         // ask the frame
         return frame.totalNumChecked();
-    }    
-     
-    /**
-     * repaint -- repaints the visible area
-     */
-    public final void repaint() {
-        // get our graphics object
-        Graphics g = this.getGraphics();
-        
-        // return if graphics object does not exist
-        if (g == null) {
-            return;
-        }
-        // paint our background by drawing a large rectangle that is the same color as
-        // as our frame's
-        g.setColor(frame.getBackground());
-        g.fillRect(0,0,3000,3000);
-        
-        // invoke our 'paint' method to draw the robot
-        this.paint(g);
     }
 
     // instance variables for all the body parts
@@ -143,7 +146,7 @@ public class Lab4BaseArea extends Canvas {
             smileMouth, frownMouth, whistleMouth,leftEye, leftEyeOut, leftEyeIn, rightEye, rightEyeIn,
             rightEyeOut,
     };
-    
+
     /**
      * init = initialized all our polygons
      */
@@ -195,7 +198,7 @@ public class Lab4BaseArea extends Canvas {
         // set points for the down-bent arms by reflecting the up-bent ones
         reflectY(longLeftArmBentUp, longLeftArmBentDown, 217);
         reflectY(leftArmBentUp, leftArmBentDown, 217);
-        
+
         // set points for all the kinds of right arms by reflecting the respective
         // left arms
         reflectX(longLeftArm, longRightArm, 250);
@@ -205,7 +208,7 @@ public class Lab4BaseArea extends Canvas {
         reflectX(leftArmBentUp, rightArmBentUp, 250);
         reflectX(longLeftArmBentDown, longRightArmBentDown, 250);
         reflectX(leftArmBentDown, rightArmBentDown, 250);
-       
+
         // set points for the left leg
         leftLeg.addPoint(250,385);
         leftLeg.addPoint(290,385);
@@ -229,7 +232,7 @@ public class Lab4BaseArea extends Canvas {
         leftLegBigFeet.addPoint(380,425);
         leftLegBigFeet.addPoint(340,475);
         leftLegBigFeet.addPoint(270,475);
-        
+
         // set points for the bent left leg with big feet
         leftLegBentBigFeet.addPoint(250,385);
         leftLegBentBigFeet.addPoint(290,385);
@@ -239,31 +242,31 @@ public class Lab4BaseArea extends Canvas {
         leftLegBentBigFeet.addPoint(365,475);
         leftLegBentBigFeet.addPoint(320,435);
         leftLegBentBigFeet.addPoint(275,440);
-        
+
         // set points for the right-leg versions by reflecting
         // the left-leg ones
         reflectX(leftLeg, rightLeg, 250);
         reflectX(leftLegBent, rightLegBent, 250);
         reflectX(leftLegBigFeet, rightLegBigFeet, 250);
         reflectX(leftLegBentBigFeet, rightLegBentBigFeet, 250);
-        
+
         // set points for the left ear
         leftEar.addPoint(325,120);
         leftEar.addPoint(330,115);
         leftEar.addPoint(330,130);
         leftEar.addPoint(325,125);
-        
+
         // set points for the big left ear        
         bigLeftEar.addPoint(325,130);
         bigLeftEar.addPoint(400,100);
         bigLeftEar.addPoint(355,185);
         bigLeftEar.addPoint(325,135);
-        
+
         // set points for the right ears by reflecting the
         // respective left ears
         reflectX(leftEar, rightEar, 250);
         reflectX(bigLeftEar, bigRightEar, 250);
-        
+
         // set points for the smile mouth
         smileMouth.addPoint(200,140);
         smileMouth.addPoint(225,150);
@@ -273,11 +276,11 @@ public class Lab4BaseArea extends Canvas {
         smileMouth.addPoint(275,145);
         smileMouth.addPoint(250,150);
         smileMouth.addPoint(225,145);
-        
+
         // set points for the frown mouth by reflecting
         // the smile mouth        
         reflectY(smileMouth, frownMouth, 148);
-        
+
         // set points for the whistle mouth
         whistleMouth.addPoint(248,145);
         whistleMouth.addPoint(252,145);
@@ -287,7 +290,7 @@ public class Lab4BaseArea extends Canvas {
         whistleMouth.addPoint(248,151);
         whistleMouth.addPoint(246,149);
         whistleMouth.addPoint(246,147);
-        
+
         // set points for the right eye looking
         // straight ahead
         rightEye.addPoint(225,115);
@@ -310,7 +313,7 @@ public class Lab4BaseArea extends Canvas {
         rightEye.addPoint(217,124);
         rightEye.addPoint(217,121);
         rightEye.addPoint(220,118);
-        
+
         // set points for the right eye looking in
         rightEyeIn.addPoint(225,115);
         rightEyeIn.addPoint(231,115);
@@ -332,7 +335,7 @@ public class Lab4BaseArea extends Canvas {
         rightEyeIn.addPoint(217,124);
         rightEyeIn.addPoint(217,121);
         rightEyeIn.addPoint(220,118);
-        
+
         // set points for the right eye looking out
         rightEyeOut.addPoint(225,115);
         rightEyeOut.addPoint(231,115);
@@ -354,13 +357,13 @@ public class Lab4BaseArea extends Canvas {
         rightEyeOut.addPoint(217,124);
         rightEyeOut.addPoint(217,121);
         rightEyeOut.addPoint(220,118);
-        
+
         // set points for the respective left-eye versions by
         // reflecting the right-eye versions
         reflectX(rightEye,leftEye,250);
         reflectX(rightEyeOut,leftEyeOut,250);
         reflectX(rightEyeIn,leftEyeIn,250);
-        
+
         // translate all the polygons to put them into
         // the position we want them
         translateAll(20,-50);
@@ -378,10 +381,10 @@ public class Lab4BaseArea extends Canvas {
         // create the x-point and y-point arrays for the new polygon
         p2.xpoints = new int[p.xpoints.length];
         p2.ypoints = new int[p.ypoints.length];
-        
+
         // set the number of points for the new polygon
         p2.npoints = p.npoints;
-        
+
         // perform the reflection in the x-direction, copying the y-positions exactly
         for (int i = 0; i < p.npoints; i++) {
             p2.xpoints[i] = 2*val-p.xpoints[i];
@@ -401,10 +404,10 @@ public class Lab4BaseArea extends Canvas {
         // create the x-point and y-point arrays for the new polygon
         p2.xpoints = new int[p.xpoints.length];
         p2.ypoints = new int[p.ypoints.length];
-        
+
         // set the number of points for the new polygon
         p2.npoints = p.npoints;
-        
+
         // perform the reflection in the y-direction, copying the x-positions exactly
         for (int i = 0; i < p.npoints; i++) {
             p2.xpoints[i] = p.xpoints[i];
@@ -423,10 +426,10 @@ public class Lab4BaseArea extends Canvas {
         if (alreadyTranslated) {
             return;
         }
-        
+
         // mark that we've already done a translation
         alreadyTranslated = true;
-        
+
         // translate each polygon
         for (Polygon polygon : allPolygons) {
             polygon.translate(x, y);
