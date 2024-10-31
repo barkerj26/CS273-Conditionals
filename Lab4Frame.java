@@ -97,7 +97,7 @@ public class Lab4Frame extends JFrame implements ItemListener {
     /**
      * itemStateChanged -- callback-method, called whenever a checkbox is checked or unchecked
      * 
-     * This method calls the repaint method in Lab4BaseArea, which then calls the paint method overridden byb Lab4Area
+     * This method calls the repaint method in Lab4BaseArea, which then calls the paint method overridden by Lab4Area
      * 
      * @param ie the item-event
      */
