@@ -95,6 +95,34 @@ public class Lab4Frame extends JFrame implements ItemListener {
     }
 
     /**
+     * itemStateChanged -- callback-method, called whenever a checkbox is checked or unchecked
+     * 
+     * This method calls the repaint method in Lab4BaseArea, which then calls the paint method overridden byb Lab4Area
+     * 
+     * @param ie the item-event
+     */
+    public void itemStateChanged(ItemEvent ie) {
+        // get the source of the object
+        JCheckBox src = (JCheckBox)ie.getSource();
+
+        // set the whistle/frown instance variable if appropriate
+        if (src.isSelected()) {
+            String checkText = src.getText();
+            if (checkText.equals("Whistle")) {
+                // "whistle" just checked
+                whistleMoreRecentThanFrown = true;
+            }
+            else if (checkText.equals("Frown")) {
+                // "frown" just checked
+                whistleMoreRecentThanFrown = false;
+            }
+        }
+
+        // have our draw-panel repaint itself
+        drawPanel.repaint();
+    }
+
+    /**
      * createJCheckBox - make a new JCheckbox with this class as listener
      * 
      * @param label the text the checkbox will display
@@ -131,32 +159,6 @@ public class Lab4Frame extends JFrame implements ItemListener {
                 .flatMap(Collection::stream)
                 .filter(AbstractButton::isSelected)
                 .count());
-    }
-
-    /**
-     * itemStateChanged -- callback-method, called whenever a checkbox is checked or unchecked
-     * 
-     * @param ie the item-event
-     */
-    public void itemStateChanged(ItemEvent ie) {
-        // get the source of the object
-        JCheckBox src = (JCheckBox)ie.getSource();
-
-        // set the whistle/frown instance variable if appropriate
-        if (src.isSelected()) {
-            String checkText = src.getText();
-            if (checkText.equals("Whistle")) {
-                // "whistle" just checked
-                whistleMoreRecentThanFrown = true;
-            }
-            else if (checkText.equals("Frown")) {
-                // "frown" just checked
-                whistleMoreRecentThanFrown = false;
-            }
-        }
-
-        // have our draw-panel repaint itself
-        drawPanel.repaint();
     }
 
     /**

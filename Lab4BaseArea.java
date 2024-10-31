@@ -30,6 +30,29 @@ public class Lab4BaseArea extends Canvas {
     }
 
     /**
+     * repaint -- repaints the visible area
+     * 
+     * This method calls the paint method overridden by Lab4Area
+     */
+    public final void repaint() {
+        // get our graphics object
+        Graphics g = this.getGraphics();
+
+        // return if graphics object does not exist
+        if (g == null) {
+            return;
+        }
+
+        // paint our background by drawing a large rectangle that is the same color as
+        // as our frame's
+        g.setColor(frame.getBackground());
+        g.fillRect(0,0,3000,3000);
+
+        // invoke our 'paint' method to draw the robot
+        this.paint(g);
+    }
+
+    /**
      * setFrame -- lets us know who our frame is
      */
     public void setFrame(Lab4Frame f) {
@@ -69,26 +92,6 @@ public class Lab4BaseArea extends Canvas {
     public int totalNumChecked() {
         // ask the frame
         return frame.totalNumChecked();
-    }
-
-    /**
-     * repaint -- repaints the visible area
-     */
-    public final void repaint() {
-        // get our graphics object
-        Graphics g = this.getGraphics();
-
-        // return if graphics object does not exist
-        if (g == null) {
-            return;
-        }
-        // paint our background by drawing a large rectangle that is the same color as
-        // as our frame's
-        g.setColor(frame.getBackground());
-        g.fillRect(0,0,3000,3000);
-
-        // invoke our 'paint' method to draw the robot
-        this.paint(g);
     }
 
     // instance variables for all the body parts
@@ -195,7 +198,7 @@ public class Lab4BaseArea extends Canvas {
         // set points for the down-bent arms by reflecting the up-bent ones
         reflectY(longLeftArmBentUp, longLeftArmBentDown, 217);
         reflectY(leftArmBentUp, leftArmBentDown, 217);
-        
+
         // set points for all the kinds of right arms by reflecting the respective
         // left arms
         reflectX(longLeftArm, longRightArm, 250);

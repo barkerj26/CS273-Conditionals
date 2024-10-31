@@ -7,7 +7,7 @@ import java.awt.*;
 public class Lab4Area extends Lab4BaseArea {
 
     ////////////////////////////////////////////////////////////
-    // paint - draws the frame's "art" on the screen
+    // paint - draws the entire robot onto the screen
     //
     // calling sequence:
     //   paint(g); // called automatically when needed
